@@ -1,0 +1,34 @@
+Documentation for the HorseObject
+
+[] = Required
+() = Optional
+
+HorseObject = {
+    -- Out of the box properties
+
+    .Instance = Horse model,
+    .PrimaryPart = Horse root part,
+    .Humanoid = Horse humanoid,
+    .ID = HTTP Unique ID
+
+    -- Movement AI properties (Only active if player is not mounted)
+
+    .MovementAI = {
+        :Terminate() -> nil = Cleans up the movement AI
+        :SetTarget(Position[vector3], Waypoints(table), Priority(int)) -> nil = Sets the current move target to specific location.
+        .Maid = Handles all the connections for movementAI (Should not be referenced)
+    }
+
+    -- Animator properties (Optional Attachment)
+
+    .Animator = {
+        :Play(AnimationName[string], IsExternal(boolean)) -> nil = Plays the animation with the given name
+        :Stop(AnimationName[string], IsExternal(boolean)) -> nil = Stops the animation with the given name
+        :SetMovementAnimation(AnimationName[string], IsExternal(boolean)) -> nil = Sets the default walk animation to the animation with given name.
+    }
+
+    -- BumbHandler (Optional Attachment)
+
+
+
+}
