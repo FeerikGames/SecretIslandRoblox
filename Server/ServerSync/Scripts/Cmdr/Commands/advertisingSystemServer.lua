@@ -5,6 +5,8 @@ return function (context)
 		return "You don't have permission to run this command"
 	end
 
+	executor.PlayerGui.StarterGuiSync.AdvertisingGui.AdminFrame.Visible = false
+	task.wait()
 	executor.PlayerGui.StarterGuiSync.AdvertisingGui.AdminFrame.Visible = true
 
     return

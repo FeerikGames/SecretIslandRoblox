@@ -8,5 +8,11 @@ return {
 			Name = "evolution";
 			Description = "Evolution : Normal, Ground, Fire, Ice, Light, Water, Celestial";
 		},
+		{
+			Type = "string";
+			Name = "username";
+			Description = "The player's username";
+			Optional = true;
+		},
 	};
 }

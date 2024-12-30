@@ -10,6 +10,7 @@ local require = require(ReplicatedStorage.SharedSync.Modules:WaitForChild("Requi
 local ToolsModule = require("ToolsModule")
 local GameDataModule = require("GameDataModule")
 local EnvironmentModule = require("EnvironmentModule")
+local TutorialModule = require("TutorialModule")
 
 local RemoteFunction = ReplicatedStorage.SharedSync.RemoteFunction
 local RemoteEvent = ReplicatedStorage.SharedSync.RemoteEvent
@@ -105,7 +106,8 @@ if game.PlaceId == EnvironmentModule.GetPlaceId("MainPlace") or game.PlaceId == 
 			BindableEvent.ShowPopupAlert:Fire(
 				player,
 				"Crystal Limit Reach!",
-				"You can collect "..limit.." per day ! \n You have reach this limit for "..collectable.." !",
+				"You can collect "..limit.." per day ! \n You have reach this limit for "..collectable,
+				nil,
 				ToolsModule.AlertPriority.Annoucement,
 				nil,
 				ToolsModule.AlertTypeButton.OK,
@@ -116,10 +118,11 @@ if game.PlaceId == EnvironmentModule.GetPlaceId("MainPlace") or game.PlaceId == 
 			BindableEvent.ShowPopupAlert:Fire(
 				player,
 				"Crystal Limit Reach!",
-				"You can collect "..limit.." per day ! \n You have reach this limit for "..collectable.." ! \n Upgrade this limit with Gamepass ?!",
+				"You can collect "..limit.." per day ! \n You have reach this limit for "..collectable.."\n Upgrade this limit with Gamepass ?!",
+				nil,
 				ToolsModule.AlertPriority.Annoucement,
 				"Upgrade",
-				ToolsModule.AlertTypeButton.OK,
+				ToolsModule.AlertTypeButton.CLOSE,
 				CallbackYES,{},
 				CallbackNO,{}
 			)
@@ -160,10 +163,14 @@ game.Players.PlayerAdded:Connect(function(Player)
 
 		--[[
 			this is a coroutine to alaways check the Y position of character and check if is undermap, don't kill player just
-			teleport him to spawn position. Limit of falling auto die player is -500, check before player goal this limite and die.
+			teleport him to spawn position. Limit of falling auto die player is -800, check before player goal this limite and die.
 		]]
 		task.spawn(function()
 			while true do
+				if not Player.Character or not Player.Character.HumanoidRootPart then
+					task.wait()
+					continue
+				end
 				if Player.Character.HumanoidRootPart.Position.Y <= -800 then
 					Player.Character.HumanoidRootPart.CFrame = game.Workspace.DefaultSpawn.CFrame + Vector3.new(0,2,0)
 				end
@@ -214,6 +221,10 @@ end)]]
 
 HorseEvents.CreatureChangeStyle.OnServerEvent:Connect(function(...)
 	HorseEvents.CreatureChangeStyle:FireClient(...)
+end)
+
+RemoteEvent.TrackingCrystal.OnServerEvent:Connect(function(...)
+	RemoteEvent.TrackingCrystal:FireClient(...)
 end)
 
 local FarmingHandler = require("FarmingHandler")

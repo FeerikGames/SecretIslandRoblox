@@ -1,9 +1,19 @@
 
-return function (context, evolutionSelected)
+return function (context, evolutionSelected, playerName)
 	local executor:Player = context.Executor
 	
 	if executor:GetRankInGroup(12349377) < 128 then
 		return "You don't have permission to run this command"
+	end
+
+    local target:Player
+    if not playerName then
+		target = executor
+	else
+		target = game.Players:FindFirstChild(playerName)
+        if not target then
+            return("Player Name not found in the actual game server!")
+        end
 	end
 
     -- Formatt parameter evolution Selected
@@ -20,9 +30,9 @@ return function (context, evolutionSelected)
         return("Evolution selected not exist, try again ...")
     end
 
-    local exist = workspace:WaitForChild("CreaturesFolder"):FindFirstChild("Creature_"..executor.Name)
+    local exist = workspace:WaitForChild("CreaturesFolder"):FindFirstChild("Creature_"..target.Name)
     if exist then
-        CreatureEvolutionModule.EvolveCreatureCommandeLine(executor, exist.CreatureID.Value, evolutionSelected)
+        CreatureEvolutionModule.EvolveCreatureCommandeLine(target, exist.CreatureID.Value, evolutionSelected)
     else
         return ("Not summoned Animals can't cahnge evolution")
     end

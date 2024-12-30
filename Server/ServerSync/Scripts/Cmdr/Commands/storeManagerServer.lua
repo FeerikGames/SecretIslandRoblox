@@ -4,7 +4,10 @@ return function (context)
 	if executor:GetRankInGroup(12349377) <= 128 then
 		return "You don't have permission to run this command"
 	end
-
+	
+	executor.PlayerGui.StarterGuiSync.ShopItemsGui.Enabled = true
+	executor.PlayerGui.StarterGuiSync.ShopItemsGui.StockItemsFrame.Visible = false
+	task.wait()
 	executor.PlayerGui.StarterGuiSync.ShopItemsGui.StockItemsFrame.Visible = true
 
     return
